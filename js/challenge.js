@@ -1,4 +1,5 @@
 const button = document.getElementById("pause");
+const restart = document.getElementById("restart");
 const form = document.getElementById("comment-form");
 let isTimerStarted;
 let resume = "";
@@ -17,6 +18,7 @@ let counterValue = parseInt(document.getElementById("counter").textContent);
 let newValue;
 document.addEventListener("DOMContentLoaded", ()=>{
     form.addEventListener("submit", handleFormSubmit);
+    restart.addEventListener("click", restartTimer);
     button.addEventListener("click", toggleTimer);
     like.addEventListener("click", displayLikedNumber);
     minus.addEventListener("click", decrementCounter);
@@ -24,6 +26,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
     //main timer
     startCounter();
 })
+
+function restartTimer(){
+    counterValue = -1;
+    clearInterval(intervalID);
+    startCounter();
+}
 
 function handleFormSubmit(e){
     e.preventDefault();
@@ -110,6 +118,7 @@ function pauseTimer(){
     minus.disabled = true;
     plus.disabled = true;
     like.disabled = true;
+    restart.disabled = true;
 
     isTimerStarted = false;
 
@@ -122,7 +131,7 @@ function resumeTimer(){
     minus.disabled = false;
     plus.disabled = false;
     like.disabled = false;
-
+    restart.disabled = false;
     startCounter();
 }
 
